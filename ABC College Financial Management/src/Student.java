@@ -1,6 +1,9 @@
+import java.util.Scanner;
 
 public class Student extends Persons
 {
+	Scanner sc = new Scanner(System.in);
+	
 	public int numberOfModules, numberOfRepeatedModules;
 	public double amountPaid;
 	String[] modules = 
@@ -23,6 +26,8 @@ public class Student extends Persons
 	int newMods, repeatMods, numberofModules;
 	float amoundPaid;
 	float balance, totalAmount, subTotal1, subTotal2;
+	int[] selectedModules = new int[6];
+	
 	public void displayModules()
 	{
 		for (int x = 0; x < totalModules; x++)
@@ -57,9 +62,25 @@ public class Student extends Persons
 		}
 	}
 	
-	public void selectModules(int[] selectedModules, int numberofModules)
-	{
-		this.numberofModules = numberofModules;
+	public void selectModules()
+	{	
+		boolean running = true;
+		
+		while(running) 
+		{
+			System.out.println("Please Enter the Module Numbers: ");
+			for (int x = 0; x < numberofModules; x++)
+			{
+				System.out.print(x+1 + ". Enter: ");
+				selectedModules[x] = sc.nextInt();
+				if (selectedModules[x] > totalModules)
+				{
+					System.out.println("Module Number Out of bounds");
+					continue;
+				}
+				running = false;
+			}	
+		}
 		
 		//reduce the value of the numbers in the selectedModules by 1 to be equivalent with the element number of the modules array
 		for (int x = 0; x < numberofModules; x++)
@@ -88,19 +109,77 @@ public class Student extends Persons
 		}
 	}
 	
-	public float getAmounPaid(float amount, int newModules, int repeatModules)
+	public float getAmounPaid(float amount)
 	{
-		this.newMods = newModules;
-		this.repeatMods = repeatModules;
 		this.amountPaid = amount;
-		
-		subTotal1 = 525 * newMods;
-		subTotal2 = 110 * repeatMods;
-		totalAmount = subTotal1 + subTotal2;
-		
 		balance = (float) (totalAmount - amountPaid);
 		return balance;
 	}
+	
+	public void getModules()
+	{
+		boolean catchError = false, running = true;
+
+		while (running)
+		{
+			System.out.println("Enter Repeat Modules (1-6): ");
+			this.repeatMods = sc.nextInt();
+			if (repeatMods < 3 && repeatMods > 0)
+			{
+				System.out.println("Repeat mods is less than 3 and greater than 0");
+				System.out.println("Enter New Modules: ");
+				this.newMods = sc.nextInt();
+				this.totalModules = repeatMods + newMods;
+				System.out.println(totalModules);
+				
+				if (totalModules > 6)
+				{
+					catchError = true;
+					System.out.println("catchError Fired True");	
+				}
+				else 
+				{
+					catchError = false;
+				}
+			}
+			
+			else if (repeatMods >= 3 && repeatMods <= 6)
+			{
+				System.out.println("Repeat Mods >= 3 AND <= 6");
+				break;
+			}
+			
+			else 
+			{
+				System.out.println("Repeat Mods Out of bounds");
+				continue;
+			}
+			
+			if (catchError == true)
+			{
+				System.out.println("CatchError Fired Continue");
+				continue;
+			}
+				
+			else if (catchError == false)
+			{
+				System.out.println("CatchError Fired Break");
+				break;
+			}
+		}
+		System.out.println("New Modules: " + newMods + "\tRepeat Modules: " + repeatMods);		
+		this.numberofModules = this.repeatMods + this.newMods;
+	}
+	
+	public float computeTotalAmount()
+	{
+		subTotal1 = 525 * newMods;
+		subTotal2 = 110 * repeatMods;
+		totalAmount = subTotal1 + subTotal2;
+		return totalAmount;
+	}
+	
+	
 }
 
 /*
