@@ -24,6 +24,10 @@ public class Student extends Persons
 	int totalModules = modules.length, newMods, repeatMods, numberofModules;
 	float amountPaid, balance, totalAmount, subTotal1, subTotal2;
 	
+	public String[] getModuleList()
+	{
+		return this.modules;
+	}
 	
 	public void displayModules() //Display Modules Function
 	{
