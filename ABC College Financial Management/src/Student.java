@@ -4,8 +4,6 @@ public class Student extends Persons
 {
 	Scanner sc = new Scanner(System.in);
 	
-	public int numberOfModules, numberOfRepeatedModules;
-	public double amountPaid;
 	String[] modules = 
 		{
 			"Introduction to Computing", "Computer Programming 1", "Introduction to Human Computer Interaction",
@@ -21,14 +19,13 @@ public class Student extends Persons
 			"CS Specialization 4", "Social Issues and Professional Practice", "CS Project 2", "CS Elective Intelligent Systems",
 			"Internship 1", "Internship 2"
 		};
-	int totalModules = modules.length;
 	String[] selectedMods = new String[6];
-	int newMods, repeatMods, numberofModules;
-	float amoundPaid;
-	float balance, totalAmount, subTotal1, subTotal2;
 	int[] selectedModules = new int[6];
+	int totalModules = modules.length, newMods, repeatMods, numberofModules;
+	float amountPaid, balance, totalAmount, subTotal1, subTotal2;
 	
-	public void displayModules()
+	
+	public void displayModules() //Display Modules Function
 	{
 		for (int x = 0; x < totalModules; x++)
 		{
@@ -62,7 +59,7 @@ public class Student extends Persons
 		}
 	}
 	
-	public void selectModules()
+	public void selectModules() //User Select Modules Function
 	{	
 		boolean running = true;
 		
@@ -109,14 +106,14 @@ public class Student extends Persons
 		}
 	}
 	
-	public float getAmounPaid(float amount)
+	public float getAmounPaid(float amount) //get the amount paid of the student
 	{
 		this.amountPaid = amount;
 		balance = (float) (totalAmount - amountPaid);
 		return balance;
 	}
 	
-	public void getModules()
+	public void getModules() //get modules by number with specifier of new and repeated modules
 	{
 		boolean catchError = false, running = true;
 
@@ -171,7 +168,7 @@ public class Student extends Persons
 		this.numberofModules = this.repeatMods + this.newMods;
 	}
 	
-	public float computeTotalAmount()
+	public float computeTotalAmount() //compute total assessment of the student
 	{
 		subTotal1 = 525 * newMods;
 		subTotal2 = 110 * repeatMods;
@@ -181,8 +178,3 @@ public class Student extends Persons
 	
 	
 }
-
-/*
- * Number of Modules A selection of new subjects for the current semester. The tuition fee for each module is PHP 525. E.g. a 
- * student taking 5 modules will have to pay 5 x 525 = 2625 Pesos. The tuition fee for each repeated module is 110.
-*/
